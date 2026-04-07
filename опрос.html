@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>Когнитивный тест | Концентрация внимания</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: #2d1b42; /* более светлый тёмно-фиолетовый */
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            color: #ffffff;
+            line-height: 1.5;
+            min-height: 100vh;
+        }
+
+        /* Штора (верхняя панель с вкладками) */
+        .navbar {
+            background-color: #1f1133;
+            padding: 0 1.5rem;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+            border-bottom: 1px solid #3e2a5a;
+        }
+
+        .tabs {
+            display: flex;
+            gap: 2rem;
+            justify-content: center;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .tab-btn {
+            background: none;
+            border: none;
+            font-size: 1rem;
+            font-weight: 500;
+            padding: 1rem 0.25rem;
+            cursor: pointer;
+            color: #cbbce6;
+            transition: all 0.2s ease;
+            font-family: inherit;
+            border-bottom: 2px solid transparent;
+        }
+
+        .tab-btn:hover {
+            color: #f0eaff;
+        }
+
+        .tab-btn.active {
+            color: #ffffff;
+            border-bottom-color: #ffffff;
+        }
+
+        /* Контент */
+        .container {
+            max-width: 1000px;
+            margin: 2rem auto;
+            padding: 0 1.5rem 3rem 1.5rem;
+        }
+
+        .tab-content {
+            display: none;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(5px);}
+            to { opacity: 1; transform: translateY(0);}
+        }
+
+        /* Карточка / блок — чёрный фон, белый текст */
+        .card {
+            background-color: #000000;
+            border-radius: 1.8rem;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            border: 1px solid #3e2a5a;
+            box-shadow: 0 12px 28px rgba(0, 0, 0, 0.4);
+            color: #ffffff;
+        }
+
+        /* Увеличенный первый блок (карточка вкладки Тест) */
+        .test-card {
+            padding: 3.5rem 2.5rem;
+            background-color: #000000;
+            text-align: center;
+        }
+
+        .card h2 {
+            font-size: 2rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            color: #ffffff;
+            letter-spacing: -0.3px;
+        }
+
+        .card h3 {
+            font-size: 1.4rem;
+            font-weight: 600;
+            margin: 1.8rem 0 0.8rem 0;
+            color: #ffffff;
+        }
+
+        .card p {
+            margin-bottom: 1rem;
+            color: #f0f0f0;
+        }
+
+        .card ul, .card ol {
+            margin: 0.75rem 0 1rem 1.5rem;
+            color: #f0f0f0;
+        }
+
+        .card li {
+            margin: 0.5rem 0;
+            color: #f0f0f0;
+        }
+
+        hr {
+            border: none;
+            height: 1px;
+            background-color: #2e1a4a;
+            margin: 1.5rem 0;
+        }
+
+        /* Кнопка опроса — по центру блока, белая */
+        .btn-wrapper {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            margin: 2rem 0;
+        }
+
+        .btn-survey {
+            display: inline-block;
+            background-color: #ffffff;
+            color: #1a0b2e;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 1.15rem;
+            padding: 1rem 2.2rem;
+            border-radius: 3rem;
+            transition: all 0.2s ease;
+            border: none;
+            cursor: pointer;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+            font-family: inherit;
+        }
+
+        .btn-survey:hover {
+            background-color: #e8e8e8;
+            transform: scale(0.98);
+            box-shadow: none;
+        }
+
+        /* Блок с информацией о почте — под кнопкой, тоже по центру */
+        .info-note {
+            background-color: #110722;
+            padding: 0.9rem 1.2rem;
+            border-radius: 1.2rem;
+            font-size: 0.9rem;
+            color: #dcd4f0;
+            display: inline-block;
+            border-left: 3px solid #ffffff;
+            margin-top: 1rem;
+            text-align: center;
+        }
+
+        /* разделитель текста */
+        .highlight {
+            color: #e0d0ff;
+            font-weight: 600;
+            background: rgba(255, 255, 255, 0.1);
+            padding: 0 4px;
+            border-radius: 6px;
+        }
+
+        footer {
+            text-align: center;
+            margin-top: 3rem;
+            font-size: 0.7rem;
+            color: #8a76a8;
+            border-top: 1px solid #3e2a5a;
+            padding-top: 1.5rem;
+        }
+
+        @media (max-width: 650px) {
+            .navbar {
+                padding: 0 1rem;
+            }
+            .tabs {
+                gap: 1rem;
+            }
+            .card {
+                padding: 1.5rem;
+            }
+            .test-card {
+                padding: 2rem 1.2rem;
+            }
+            .card h2 {
+                font-size: 1.5rem;
+            }
+            .btn-survey {
+                font-size: 1rem;
+                padding: 0.8rem 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<div class="navbar">
+    <div class="tabs">
+        <button class="tab-btn active" data-tab="test">Тест</button>
+        <button class="tab-btn" data-tab="info">Что такое концентрация внимания?</button>
+    </div>
+</div>
+
+<div class="container">
+    <!-- ВКЛАДКА 1: ТЕСТ (увеличенный блок) -->
+    <div id="test" class="tab-content active">
+        <div class="card test-card">
+            <h2>Общий анализ концентрации внимания</h2>
+            <p style="font-size: 1.05rem; color: #e0e0e0;">Оценка влияния коротких видео на когнитивные способности: фокус, память, устойчивость внимания и цифровую усталость.</p>
+            
+            <div class="btn-wrapper">
+                <a href="https://forms.gle/91kcHdvrDiiYkMhX8" target="_blank" rel="noopener noreferrer" class="btn-survey">
+                    ⚡ Пройти тест
+                </a>
+                <div class="info-note">
+                    📧 Результаты тестирования будут отправлены на вашу почту
+                </div>
+            </div>
+            
+            <hr>
+            <p style="font-size: 0.85rem; color: #9b8bb5; text-align: center;">
+                Тест занимает около 5–7 минут. После завершения вы получите разбор с индексом цифровой усталости и персональными рекомендациями.
+            </p>
+        </div>
+    </div>
+
+    <!-- ВКЛАДКА 2: ТЕОРИЯ -->
+    <div id="info" class="tab-content">
+        <div class="card">
+            <h2>Что такое концентрация внимания?</h2>
+            <p><strong>Концентрация внимания (или фокус внимания)</strong> — это способность сознания удерживать когнитивный ресурс на одном объекте, задаче или мысли в течение определенного времени, игнорируя отвлекающие факторы.</p>
+            
+            <h3>Как работает мозг: этапы концентрации</h3>
+            <p>С точки зрения работы мозга, концентрация — это сложный процесс, включающий несколько этапов:</p>
+            <ul>
+                <li><span class="highlight">Ориентировочный рефлекс:</span> Мозг выбирает цель («на что смотреть?»).</li>
+                <li><span class="highlight">Активация:</span> Запуск систем бодрствования (ретикулярная формация, норадреналин).</li>
+                <li><span class="highlight">Удержание:</span> Префронтальная кора (лобные доли) подавляет посторонние сигналы и не дает мозгу «переключить канал».</li>
+            </ul>
+            <p><span class="highlight">Ключевая характеристика концентрации — глубина.</span> Это не просто «не отвлекаться», а полное погружение в задачу, когда вы перестаете замечать время и внешние раздражители (состояние, близкое к потоку).</p>
+            
+            <hr>
+            
+            <h2>Как короткие видео (TikTok, Reels, Шортсы) влияют на концентрацию и когнитивные способности?</h2>
+            <p>Влияние неоднозначное, но современные исследования указывают на системные негативные изменения при злоупотреблении таким форматом.</p>
+            
+            <h3>Механизм влияния:</h3>
+            <ul>
+                <li><span class="highlight">Эффект «быстрой дофаминовой петли»:</span> Каждое новое короткое видео — это маленькая неизвестность. Мозг получает микро-вознаграждение (дофамин) за каждый свайп. Это формирует привычку искать новизну «здесь и сейчас».</li>
+                <li><span class="highlight">Привыкание к частоте награды:</span> Длинные задачи (чтение книги, решение задачи) дают вознаграждение отсрочено (через 30 минут или час). Короткие видео приучают мозг к награде каждые 15–30 секунд. После этого длительные задачи начинают казаться «скучными» и «болезненными».</li>
+            </ul>
+            
+            <h3>Регулярный просмотр коротких видео (более 1–2 часов в день) приводит к изменениям:</h3>
+            <ul>
+                <li><span class="highlight">Концентрация (фокус) резко снижается.</span> Развивается «скачущее» внимание — трудно смотреть фильм без перемотки или читать параграф учебника, не отвлекаясь.</li>
+                <li><span class="highlight">Устойчивость внимания падает.</span> Вы не можете удерживать мысль на одной теме более 2–3 минут. Появляется постоянное желание переключиться на что-то новое.</li>
+                <li><span class="highlight">Рабочая память ухудшается.</span> Постоянное переключение между новыми видео не позволяет «прошить» информацию в долговременную память.</li>
+                <li><span class="highlight">Глубина обработки информации практически отсутствует.</span> Мозг отвыкает от критического мышления и переключается в режим пассивного потребления.</li>
+                <li><span class="highlight">Толерантность к скуке обнуляется.</span> Любая рутина начинает вызывать тревогу и желание проверить телефон.</li>
+            </ul>
+            
+            <h3>Есть ли плюсы? (Не всё так однозначно)</h3>
+            <p>Умеренное и осознанное потребление коротких видео может дать:</p>
+            <ul>
+                <li><span class="highlight">Скорость переключения:</span> Вы учитесь очень быстро переключать внимание между разными стимулами (полезно диспетчерам или трейдерам).</li>
+                <li><span class="highlight">Быстрое распознавание паттернов:</span> Мозг привыкает за доли секунды оценивать видео и принимать решение (свайп или нет).</li>
+            </ul>
+            <p><strong>НО:</strong> Эта «супер-быстрая переключаемость» идет вразрез с глубокой концентрацией. В современном мире глубокий фокус — редкий и ценный навык, а скорость переключения есть почти у всех.</p>
+            
+            <h3>Что происходит с мозгом физиологически?</h3>
+            <p>Нейробиологи сравнивают злоупотребление короткими видео с «когнитивным диабетом»:</p>
+            <ul>
+                <li>Мозг привыкает к коротким, высоким пикам дофамина.</li>
+                <li>Рецепторы дофамина становятся менее чувствительными (понижается регуляция).</li>
+                <li>Чтобы получить то же удовольствие от книги или реального общения, их нужно потреблять в разы больше — но мозг уже не способен на это, потому что не может сосредоточиться.</li>
+            </ul>
+            
+            <p style="margin-top: 1.8rem; font-style: italic; border-left: 2px solid #ffffff; padding-left: 1rem;">Вы можете пройти тест во вкладке «Тест» и получить персональную оценку влияния коротких видео на ваше внимание.</p>
+        </div>
+    </div>
+    
+    <footer>
+        Когнитивный анализ | Влияние цифровой среды на концентрацию
+    </footer>
+</div>
+
+<script>
+    const tabs = document.querySelectorAll('.tab-btn');
+    const contents = document.querySelectorAll('.tab-content');
+    
+    function activateTab(tabId) {
+        contents.forEach(content => {
+            content.classList.remove('active');
+        });
+        document.getElementById(tabId).classList.add('active');
+        
+        tabs.forEach(btn => {
+            btn.classList.remove('active');
+            if (btn.getAttribute('data-tab') === tabId) {
+                btn.classList.add('active');
+            }
+        });
+    }
+    
+    tabs.forEach(btn => {
+        btn.addEventListener('click', () => {
+            const tabId = btn.getAttribute('data-tab');
+            activateTab(tabId);
+        });
+    });
+    
+    if (window.location.hash === '#info') {
+        activateTab('info');
+    } else if (window.location.hash === '#test') {
+        activateTab('test');
+    }
+</script>
+</body>
+</html>
